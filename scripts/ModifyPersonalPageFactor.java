@@ -1,8 +1,12 @@
 package scripts;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
@@ -13,14 +17,7 @@ public class ModifyPersonalPageFactor {
 	Select dropdown;
 	WebDriver driver;
 	Actions builder;
-/*	By emailid = By.id("user_name");
-	By pass = By.id("password");
-	By loginclick = By.cssSelector("#user_login > div.submit_container > input");*/
 	By logout= By.className("logout");
-	/*By membership=By.cssSelector("body > div.mm-page > div.submenu > nav > ul > li:nth-child(1) > a");
-	By memberReg=By.cssSelector("body > div.mm-page > div.submenu > nav > ul > li:nth-child(1) > ul > li:nth-child(2) > a");
-	By individual=By.cssSelector("body > div.mm-page > div.submenu > nav > ul > li:nth-child(1) > ul > li:nth-child(2) > ul > li:nth-child(1) > a"); 
-	By nonIndividual= By.cssSelector("body > div.mm-page > div.submenu > nav > ul > li:nth-child(1) > ul > li:nth-child(1) > ul > li:nth-child(2) > a");*/
 	By type = By.id("member_types_chosen");
 	By indMember= By.cssSelector("#member_types_chosen > div > div > input[type='text']");
 	By indMember1= By.cssSelector("#account_type_chosen > div > div > input[type='text']");
@@ -49,7 +46,7 @@ public class ModifyPersonalPageFactor {
 	{
 		this.driver = driver;
 		this.builder = builder;
-	//	this.builder= builder;
+
 	}
 	
 
@@ -98,6 +95,18 @@ public class ModifyPersonalPageFactor {
 			dropdown= new Select(driver.findElement(By.id("custcaste")));
 			dropdown.selectByVisibleText(caste1);
 			Thread.sleep(500);
+			
+			System.out.println(occupation1);
+			driver.findElement(occupation).click();
+			WebElement list1 = driver.findElement(By.cssSelector("#occupation1_chosen > div > ul"));
+			List<WebElement> occupationList = list1.findElements(By.cssSelector("#occupation1_chosen > div > ul> li"));
+			Iterator< WebElement> itr = occupationList.iterator();
+			while(itr.hasNext()){
+				if(itr.next().getText().equals(occupation))
+					
+				Thread.sleep(500);
+			
+			}
 			/*System.out.println(occupation1);
 			driver.findElement(occupation).clear();
 			driver.findElement(occupation).click();

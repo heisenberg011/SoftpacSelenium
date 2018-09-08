@@ -11,8 +11,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -22,67 +22,78 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class mul_acc_transaction {
+public class NonIndividualConfirm {
+
+	
 	WebDriver driver;
-	POM_MultipleAccounts object;
+	ModifyPersonalPageFactor personalModify;
+	ModifyVerifyPageFactor verify1;
+	ModifyAddressPageFactor address1;
+	ModifyOtherPageFactor other1;
 	Actions builder;
-
+	
+	HomePagePOM homePage;
+	ModifyUploadPageFactor uploadModify1;
+	LoginPage login1;
 	@BeforeTest
-	public void setup() throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver",
-				"test\\resources\\driver\\chromedriver.exe");
-
-		driver = new ChromeDriver();
+	public void setup() throws InterruptedException
+	{
+		File pathToBinary = new File("C:\\Users\\AM101_PC20\\AppData\\Local\\Mozilla Firefox\\firefox.exe");
+		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+		FirefoxProfile firefoxProfile = new FirefoxProfile();       
+		driver = new FirefoxDriver(ffBinary,firefoxProfile);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		builder = new Actions(driver);
-		object = new POM_MultipleAccounts(driver, builder);
+		personalModify=new ModifyPersonalPageFactor(driver,builder);
+		login1 = new LoginPage(driver, builder);
+		homePage = new HomePagePOM(driver, builder);
+		verify1=new ModifyVerifyPageFactor(driver,builder);
+		address1 = new ModifyAddressPageFactor(driver, builder);
+		other1 = new ModifyOtherPageFactor(driver, builder);
+		//upload1 = new UploadPageFactor(driver, builder);
+		uploadModify1 = new ModifyUploadPageFactor(driver,builder);
 		driver.get("http://205.147.102.59:8080/SoftPac/login");
-
 		driver.findElement(By.id("user_name")).sendKeys("beta6");
+		driver.findElement(By.id("password")).sendKeys("beta@123");	
+		Thread.sleep(1000);	
+		driver.findElement(By.cssSelector("#user_login > div.submit_container > input")).click();
 
-		driver.findElement(By.id("password")).sendKeys("beta@123");
-
-		Thread.sleep(1000);
-
-		driver.findElement(
-				By.cssSelector("#user_login > div.submit_container > input"))
-				.click();
-		Thread.sleep(5000);
 	}
+	 @DataProvider(name="IndiRegister")
+	 public Object[][] createData12() throws IOException
+	 {
+	      Object[][] retObjArr=getExcelData("test\\resources\\data\\Modify.xls","IndiRegister");
+	      System.out.println("*****************  Data Accessed *************************");
+	      return(retObjArr);
+	  }
+	 
 
-	@DataProvider(name = "Sheet1")
-	public Object[][] createData12() throws IOException {
-		Object[][] retObjArr = getExcelData(
-				"test\\resources\\data\\transaction_multiple_acc.xlsx",
-				"Sheet1");
-		System.out
-				.println("*****************  Data Accessed *************************");
-		return (retObjArr);
-	}
 
-	@Test(dataProvider = "Sheet1")
-	public void register1(String operation, String Member_id,
-			String acc_number, String acc_1, String acc_2, String amt_1,
-			String amt_2, String Transaction_type, String Instrument_type,
-			String chequeno, String Transaction_code)
-			throws InterruptedException {
-		object.transaction(operation, Member_id, acc_number, acc_1, acc_2,
-				amt_1, amt_2, Transaction_type, Instrument_type, chequeno,
-				Transaction_code);
-	}
+	@Test(dataProvider = "IndiRegister")
+	public void modify1() throws InterruptedException
+		{	login1.login();
+			homePage.nonIndividualConfirm();
+			driver.findElement(By.id("action_chosen")).click();
+			driver.findElement(By.cssSelector("#action_chosen > div > div > input[type='text']")).sendKeys("Confirm"+Keys.ENTER);
+			Thread.sleep(1000);
 
+		}
+	
+		
+	
 	@AfterClass
-	public void tearDown() throws InterruptedException {
+    public void tearDown() throws InterruptedException
+	{
+		//driver.findElement(By.id("submit")).click();
+		//upload1.upload();
 		Thread.sleep(2000);
-
-		java.util.Date date = new java.util.Date();
-		System.out.println("\n\nExecution Log - End Time - "
-				+ new Timestamp(date.getTime()));
-		driver.close();
-	}
-
+		//driver.quit();
+		java.util.Date date= new java.util.Date();
+		System.out.println("\n\nExecution Log - End Time - " + new Timestamp(date.getTime()));
+    } 
+	
 	@SuppressWarnings("deprecation")
 	public static String[][] getExcelData(String fileName, String sheetName)
 			throws IOException {
@@ -93,15 +104,19 @@ public class mul_acc_transaction {
 			FileInputStream fs = new FileInputStream(file);
 			// .xls
 			if (fileName.substring(fileName.indexOf(".")).equals(".xlsx")) {
+
 				// If it is xlsx file then create object of XSSFWorkbook class
+
 				wb = new XSSFWorkbook(fs);
 			} else if (fileName.substring(fileName.indexOf(".")).equals(".xls")) {
 				// If it is xls file then create object of HSSFWorkbook class
 				wb = new HSSFWorkbook(fs);
 			}
 			Sheet sh = wb.getSheet(sheetName);
+
 			int totalNoOfRows = sh.getPhysicalNumberOfRows();
 			int totalNoOfCols = sh.getRow(0).getPhysicalNumberOfCells();
+
 			System.out.println("totalNoOfRows=" + totalNoOfRows + ","
 					+ " totalNoOfCols=" + totalNoOfCols);
 			arrayExcelData = new String[totalNoOfRows - 1][totalNoOfCols];

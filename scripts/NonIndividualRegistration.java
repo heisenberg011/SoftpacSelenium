@@ -30,6 +30,8 @@ public class NonIndividualRegistration {
 	RegAddressPageFactor address1;
 	RegOtherPageFactor other1;
 	Actions builder;
+	LoginPage login1;
+	HomePagePOM homepage1;
 	@BeforeTest
 	public void setup() throws InterruptedException
 	{
@@ -45,16 +47,10 @@ public class NonIndividualRegistration {
 		verify1=new RegVerifyPageFactor(driver,builder);
 		address1 = new RegAddressPageFactor(driver, builder);
 		other1 = new RegOtherPageFactor(driver, builder);
+		login1 = new LoginPage(driver, builder);
+		homepage1 = new HomePagePOM(driver, builder);
 		driver.get("http://205.147.102.59:8080/SoftPac/login");
-		
-		driver.findElement(By.id("user_name")).sendKeys("beta6");
-		
-	
-		driver.findElement(By.id("password")).sendKeys("beta@123");
-		
-		Thread.sleep(1000);
-		
-		driver.findElement(By.cssSelector("#user_login > div.submit_container > input")).click();
+
 		
 	}
 	
@@ -112,7 +108,9 @@ public class NonIndividualRegistration {
 			String place, String regno, String date, String firstNameH1,String addressL1,
 			String addressL2, String village,String state,String pincode,String landline,String mobileNo,
 			String emailId,String pan ,String income, String education, String nature) throws InterruptedException
-		{
+		{	
+			login1.login();
+			homepage1.individualRegister();
 			Thread.sleep(2000);
 			personal1.nonIndiRegister(accType,  firstName,  operator1,  operator2,
 					 constitution,  documentation_Details, docName,  issuing_Authority,

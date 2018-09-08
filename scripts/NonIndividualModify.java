@@ -33,6 +33,7 @@ public class NonIndividualModify {
 	HomePagePOM homePage;
 	ModifyPersonalPageFactor personalModify;
 	ModifyUploadPageFactor uploadModify1;
+	LoginPage login1;
 	@BeforeTest
 	public void setup() throws InterruptedException
 	{
@@ -50,17 +51,9 @@ public class NonIndividualModify {
 		otherModify = new ModifyOtherPageFactor(driver, builder);
 		personalModify=new ModifyPersonalPageFactor(driver,builder);
 		uploadModify1 = new ModifyUploadPageFactor(driver,builder);
+		login1 = new LoginPage(driver, builder);
 		homePage = new HomePagePOM(driver, builder);
 		driver.get("http://205.147.102.59:8080/SoftPac/login");
-		
-		driver.findElement(By.id("user_name")).sendKeys("beta6");
-		
-	
-		driver.findElement(By.id("password")).sendKeys("beta@123");
-		
-		Thread.sleep(1000);
-		
-		driver.findElement(By.cssSelector("#user_login > div.submit_container > input")).click();
 		
 	}
 	
@@ -84,7 +77,8 @@ public class NonIndividualModify {
 			String addressL2, String village,String state,String pincode,String landline,String mobileNo,
 			String emailId,String pan ,String income, String education, String nature) throws InterruptedException
 		{
-		homePage.nonIndividualModify();
+			login1.login();
+			homePage.nonIndividualModify();
 			Thread.sleep(2000);
 			personalModify.nonIndiModify(firstName, 
 					 constitution,  documentation_Details, docName,  issuing_Authority,

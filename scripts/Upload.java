@@ -30,6 +30,7 @@ public class Upload {
 	UploadPageFactor upload1;
 	HomePagePOM homePage;
 	ModifyUploadPageFactor modifyUpload;
+	LoginPage login1;
 	
 	@BeforeTest
 	public void setup() throws InterruptedException
@@ -42,20 +43,11 @@ public class Upload {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		builder = new Actions(driver);
-
+		login1 = new LoginPage(driver, builder);
 		homePage = new HomePagePOM(driver, builder);
 		modifyUpload = new ModifyUploadPageFactor(driver, builder);
 		upload1 = new UploadPageFactor(driver, builder);
 		driver.get("http://205.147.102.59:8080/SoftPac/login");
-		
-		driver.findElement(By.id("user_name")).sendKeys("beta6");
-		
-	
-		driver.findElement(By.id("password")).sendKeys("beta@123");
-		
-		Thread.sleep(1000);
-		
-		driver.findElement(By.cssSelector("#user_login > div.submit_container > input")).click();
 		
 	}
 	
@@ -71,7 +63,7 @@ public class Upload {
 	@Test()
 	public void upload1() throws InterruptedException
 		{
-		
+			login1.login();
 			homePage.uploadDocuments();
 			Thread.sleep(2000);
 			homePage.uploadPhoto();

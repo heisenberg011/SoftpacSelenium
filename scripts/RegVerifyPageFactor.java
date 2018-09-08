@@ -17,11 +17,12 @@ public class RegVerifyPageFactor {
 	By driving = By.id("driving");
 	By passport = By.id("passport");
 	By voter = By.id("voter");
-	
+	By amount = By.id("amount");
 	By yes = By.id("mycheckbox4");
 	By no = By.id("mycheckbox5");
 	By wardAddress = By.id("wardAddress");
-	
+	By yesCheckbox = By.id("mycheckbox4");
+	By noCheckbox = By.id("mycheckbox5"); 
 	public RegVerifyPageFactor(WebDriver driver,Actions builder)
 	{
 		this.driver = driver;
@@ -39,8 +40,13 @@ public class RegVerifyPageFactor {
 		driver.findElement(voter).sendKeys(voter1);
 		dropdown= new Select(driver.findElement(By.id("type")));
 		dropdown.selectByVisibleText(form60);
-	
-	
+		driver.findElement(amount).sendKeys(amount1);
+		if(assessTax.equals("Yes")){
+			driver.findElement(yesCheckbox).click();
+			driver.findElement(wardAddress).sendKeys(wardAddress1);
+		}
+		else 
+			driver.findElement(noCheckbox).click();
 	
 		dropdown= new Select(driver.findElement(By.id("custform61")));
 		dropdown.selectByVisibleText(form61);

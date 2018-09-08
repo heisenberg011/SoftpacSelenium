@@ -67,39 +67,6 @@ public class IndividualModify {
 	      System.out.println("*****************  Data Accessed *************************");
 	      return(retObjArr);
 	  }
-	 
-/*	 @DataProvider(name="NonIndiRegister")
-	 public Object[][] createData4() throws IOException
-	 {
-	      Object[][] retObjArr=getExcelData("test\\resources\\data\\Login.xls","NonIndiRegister");
-	      System.out.println("*****************  Data Accessed *************************");
-	      return(retObjArr);
-	  }
-	 
-	 @DataProvider(name="Verify")
-	 public Object[][] createData1() throws IOException
-	 {
-	      Object[][] retObjArr=getExcelData("test\\resources\\data\\Login.xls","IndiVerify");
-	      System.out.println("*****************  Data Accessed *************************");
-	      return(retObjArr);
-	  }
-	 
-	 @DataProvider(name="Address")
-	 public Object[][] createData2() throws IOException
-	 {
-	      Object[][] retObjArr=getExcelData("test\\resources\\data\\Login.xls","IndiAddress");
-	      System.out.println("*****************  Data Accessed *************************");
-	      return(retObjArr);
-	  }
-	 
-	 @DataProvider(name="Other")
-	 public Object[][] createData3() throws IOException
-	 {
-	      Object[][] retObjArr=getExcelData("test\\resources\\data\\Login.xls","IndiOther");
-	      System.out.println("*****************  Data Accessed *************************");
-	      return(retObjArr);
-	  }
-	 */
 
 	@Test(dataProvider = "IndiRegister", priority= 0)
 	public void modify1(String detail, String type, String accType, String firstName,
@@ -128,43 +95,7 @@ public class IndividualModify {
 			uploadModify1.uploadModifyIndividual();
 			Thread.sleep(2000);
 		}
-	
-		
-		
-	
-	/*
-	@Test(dataProvider = "Verify", priority= 1)
-	public void verify(String pan, String aadhar, String driving, String passport, String voter,String form60, String form61, String amount,String assessTax,String wardAddress) throws InterruptedException
-	{
-		//driver.get("http://205.147.102.59:8080/SoftPac/login");
-		verify1.verify(pan,aadhar, driving, passport,voter, form60,  form61,  amount, assessTax, wardAddress);
-		//Thread.sleep(2000);
-			
-	}
-	
-	@Test(dataProvider = "Address", priority= 2)
-	public void address1(String addressL1,String addressL2, String village
-			,String state,String pincode,String landline,String mobileNo,
-			String emailId) throws InterruptedException
-	{
-		//driver.get("http://205.147.102.59:8080/SoftPac/login");
-		Thread.sleep(2000);
-		address1.address( addressL1, addressL2, state, pincode, landline, mobileNo, emailId,  village);
-			
-	}
-	
-	@Test(dataProvider = "Other", priority= 3)
-	public void Other(String income, String education, String maritalstatus, String nature) throws InterruptedException
-	{
-		//driver.get("http://205.147.102.59:8080/SoftPac/login");
-		Thread.sleep(2000);
-		other1.other( income,  education,  maritalstatus,  nature);
-		
-			
-	}*/
-	
-	
-		
+
 	
 	@AfterClass
     public void tearDown() throws InterruptedException

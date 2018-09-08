@@ -67,7 +67,7 @@ public class createFD_POM {
 
 	By interestRate = By.xpath("//*[@id='intrate']");
 
-	By calMaturityAmt = By.xpath("//*[@id='command']/div/div/div[1]/div/div[11]/div");
+	By calMaturityAmt = By.cssSelector("#command > div > div > div.tabGroup > div > div.cal_container > div");
 	// #command > div > div > div.tabGroup > div > div.cal_container > div
 
 	By applicableInterestRate = By.id("intapprate");

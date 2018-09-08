@@ -1,4 +1,4 @@
-package transaction_credit_Od_Balance;
+package scripts;
 
 import static org.testng.Assert.assertEquals;
 import org.openqa.selenium.By;

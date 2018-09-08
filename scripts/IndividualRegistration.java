@@ -32,6 +32,7 @@ public class IndividualRegistration {
 	Actions builder;
 	UploadPageFactor upload1;
 	HomePagePOM homePage;
+	LoginPage login1;
 	@BeforeTest
 	public void setup() throws InterruptedException
 	{
@@ -49,16 +50,8 @@ public class IndividualRegistration {
 		address1 = new RegAddressPageFactor(driver, builder);
 		other1 = new RegOtherPageFactor(driver, builder);
 		upload1 = new UploadPageFactor(driver, builder);
+		login1 = new LoginPage(driver, builder);
 		driver.get("http://205.147.102.59:8080/SoftPac/login");
-		
-		driver.findElement(By.id("user_name")).sendKeys("beta6");
-		
-	
-		driver.findElement(By.id("password")).sendKeys("beta@123");
-		
-		Thread.sleep(1000);
-		
-		driver.findElement(By.cssSelector("#user_login > div.submit_container > input")).click();
 		
 	}
 	
@@ -85,7 +78,7 @@ public class IndividualRegistration {
 			,String mobileNo,String emailId,String income, String education, 
 			String maritalstatus, String nature) throws InterruptedException
 		{
-		
+			login1.login();
 			homePage.individualRegister();
 			Thread.sleep(2000);
 			
@@ -93,7 +86,7 @@ public class IndividualRegistration {
 					gender1,first_Nameh1,middle_Nameh1,last_Nameh1, religion1, occupation1,
 					memberClass,caste1, nationality1, fatherName, motherName, landacre,DOB1);
 			Thread.sleep(2000);
-			System.out.println("kfoajsflkjas");
+	
 			verify1.verify(pan,aadhar, driving, passport,voter, form60,  form61,  amount, assessTax, wardAddress);
 			Thread.sleep(2000);
 			address1.address( addressL1, addressL2, state, pincode, landline, mobileNo, emailId,  village);

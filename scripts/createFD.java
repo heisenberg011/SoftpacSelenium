@@ -104,6 +104,7 @@ public class createFD {
 			cr.selectIntSlab(Interest);
 			cr.dAmount(DepositAmt);
 			cr.tenure(Tenure_Y, Tenure_M, Tenure_D);
+			System.out.println("kjhabwdhyuhasb");
 			//cr.customerTypeSenior();
 			cr.calMatAmt();
 			System.out

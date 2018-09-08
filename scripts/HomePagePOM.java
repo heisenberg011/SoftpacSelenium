@@ -103,6 +103,27 @@ public class HomePagePOM {
 		driver.findElement(nonIndividualModify).click();
 			
 	}	
+	
+	//////////////////////////////////////////////-------------------------------------------/////////////////////////////////////////////
+	public void individualConfirm() throws InterruptedException {
+		
+		// TODO Auto-generated method stub
+		driver.findElement(membership).click();
+		driver.findElement(memberModify).click();
+		driver.findElement(individualModify).click();
+			
+	}	
+	public void nonIndividualConfirm() throws InterruptedException {
+		
+		// TODO Auto-generated method stub
+		driver.findElement(membership).click();
+		driver.findElement(memberModify).click();
+		driver.findElement(nonIndividualModify).click();
+			
+	}	
+	
+	
+	//-----------//////////////////////////////////////////////----------------------------------------------///////////////////////
 	public void uploadDocuments() throws InterruptedException {
 		
 		// TODO Auto-generated method stub
